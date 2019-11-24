@@ -1,2 +1,0 @@
-# TokyoMetroInfoAPP
-TokyoMetroInfoAPP for Laravel
