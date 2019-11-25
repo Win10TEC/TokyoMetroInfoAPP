@@ -5,7 +5,7 @@ namespace App;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Database\Eloquent\Model;
-use \GuzzleHttp\Client;
+use GuzzleHttp\Client;
 
 class getTrainOpeStatus extends Model
 {
@@ -81,6 +81,7 @@ class getTrainOpeStatus extends Model
     function getTrainOpeStatusData(){
         $trainData=null;
         foreach ($this->getTrainOpeStatusApi() as $item) {
+            $id = $item["@id"];
             $operator = $item["odpt:operator"];
             $operator = str_replace('odpt.Operator:', '', $operator);
             $railway = $item["odpt:railway"];
@@ -88,18 +89,20 @@ class getTrainOpeStatus extends Model
             $t = new DateTime($item["dc:date"]);
             $t->setTimeZone(new DateTimeZone('Asia/Tokyo'));
             $datetime =$t->format('Y-m-d H:i');
+            $valid = $item["dct:valid"];
+            $timeOfOrigin = $item["odpt:timeOfOrigin"];
+            $trainInformationText = $item["odpt:trainInformationText"];
             if (empty($item["odpt:trainInformationStatus"])) {
                 $trainInfoData[] = array(
-                    "id" => $item["@id"],
+                    "id" => $id,
                     "date" => $datetime,
-                    "valid" => $item["dct:valid"],
+                    "valid" => $valid,
                     "operator" => $operator,
                     "railway" => $railway,
-                    "timeOfOrigin" => $item["odpt:timeOfOrigin"],
-                    "trainInformationText" => $item["odpt:trainInformationText"],
+                    "timeOfOrigin" => $timeOfOrigin,
+                    "trainInformationText" => $trainInformationText,
                 );
             }
         }
-        return $trainInfoData;
     }
 }
