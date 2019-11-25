@@ -1,0 +1,14 @@
+{
+    "name": "junichi/tokyo-metro-info-app",
+    "description": "TokyoMetroInfoAPP",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Win10TEC",
+            "email": "win10.labch@gmail.com"
+        }
+    ],
+    "require": {
+        "laravel/installer": "^2.3"
+    }
+}
