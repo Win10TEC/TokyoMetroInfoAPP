@@ -1,6 +1,4 @@
-# TokyoMetroInfoAPP
-TokyoMetroInfoAPP for Laravel
-
+# TokyoMetroInfoAPP for Laravel
 Application using TokyoMetro API
 
 TokyoMetro API :https://developer.tokyometroapp.jp/info
