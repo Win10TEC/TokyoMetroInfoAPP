@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'TrainOpeStatusController@index');
+Route::get('/time', 'TrainTimeController@index');
