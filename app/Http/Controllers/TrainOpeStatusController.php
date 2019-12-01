@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use DateTime;
-use DateTimeZone;
+use App\getTrainOpeStatus;
 
 class TrainOpeStatusController extends Controller
 {
@@ -12,8 +11,8 @@ class TrainOpeStatusController extends Controller
         $items = null;
         $item = null;
         $tmp = null;
-        $api = $this->getTrainOpeStatusApi();
-        foreach ($api as $data) {
+        $api = new getTrainOpeStatus();
+        foreach ($api->getTrainOpeStatusApi() as $data) {
             $railway = $data["railway"];
             $trainInformationText = $data["trainInformationText"];
 
@@ -39,47 +38,6 @@ class TrainOpeStatusController extends Controller
             $tmp[] = $items;
         }
         $item = array("data" => $tmp);
-        return view('train.index', $item);
-    }
-
-    public function getTrainOpeStatusApi()
-    {
-        $trainInfoData = null;
-        $url = getenv('METRO_URL');
-        $key = getenv('METRO_TOKEN');
-        $client = new \GuzzleHttp\Client();
-        $uri = $url . 'datapoints?rdf:type=odpt:TrainInformation&' . $key;   //運行状況取得
-        $response = $client->request('GET', $uri);
-        $res = $response->getBody()->getContents();
-        $json = json_decode($res, true);
-
-        foreach ($json as $item) {
-            $id = $item["@id"];
-            $operator = $item["odpt:operator"];
-            $operator = str_replace('odpt.Operator:', '', $operator);
-            $railway = $item["odpt:railway"];
-            $railway = str_replace('odpt.Railway:TokyoMetro.', '', $railway);
-            $t = new DateTime($item["dc:date"]);
-            $t->setTimeZone(new DateTimeZone('Asia/Tokyo'));
-            $datetime = $t->format('Y-m-d H:i');
-            $valid = $item["dct:valid"];
-            $timeOfOrigin = $item["odpt:timeOfOrigin"];
-            $trainInformationText = $item["odpt:trainInformationText"];
-
-            $trainInfoData[] = array(
-                "id" => $id,
-                "date" => $datetime,
-                "valid" => $valid,
-                "operator" => $operator,
-                "railway" => $railway,
-                "timeOfOrigin" => $timeOfOrigin,
-                "trainInformationText" => $trainInformationText,
-            );
-        }
-        if (!empty($trainInfoData)) {
-            return $trainInfoData;
-        } else {
-            return 0;
-        }
+        return view('trainstatus.index', $item);
     }
 }
