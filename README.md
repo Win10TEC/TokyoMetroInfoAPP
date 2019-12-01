@@ -1,5 +1,7 @@
 # TokyoMetroInfoAPP
 TokyoMetroInfoAPP for Laravel
+Application using Tokyo Metro API
+TokyoMetroAPI :https://developer.tokyometroapp.jp/info
 
 ## CI - CircleCI
 ![CircleCI](https://img.shields.io/circleci/build/github/Win10TEC/TokyoMetroInfoAPP)
