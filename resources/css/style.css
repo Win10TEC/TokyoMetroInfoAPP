@@ -3,13 +3,13 @@
     overflow-y: auto;
 }
 
-.main-title{
+.main-title {
     margin-top: 10px;
     text-align: center;
 }
 
 
-.railway-title-text{
+.railway-title-text {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 36px;
     text-align: center;
@@ -17,7 +17,7 @@
     color: white;
 }
 
-.railway-main-text{
+.railway-main-text {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
     text-align: center;

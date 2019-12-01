@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/','TrainOpeStatusController@index');
+Route::get('/', 'TrainOpeStatusController@index');
