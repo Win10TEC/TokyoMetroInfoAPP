@@ -2,91 +2,87 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\getTrainOpeStatus;
+use DateTime;
+use DateTimeZone;
 
 class TrainOpeStatusController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $class= new getTrainOpeStatus();
-        foreach ((array)$class->getTrainOpeStatusData() as $item){
-            $railway = $item["railway"];
-            $trainInformationText = $item["trainInformationText"];
-            var_dump($item);
-            //return view('status', ['items' => $item,]);
-            return view('status/index',$item);
+    public function index(){
+        $items=null;
+        $item=null;
+        $tmp=null;
+        $api=$this->getTrainOpeStatusApi();
+        foreach ($api as $data) {
+            $date=$data["date"];
+            $operator=$data["operator"];
+            $railway=$data["railway"];
+            $trainInformationText=$data["trainInformationText"];
+
+            if ($railway == "Chiyoda") {
+                $items =["railway"=>$railway, "trainInformationText"=>$trainInformationText];
+            } elseif ($railway == "Tozai") {
+                $items =["railway"=>$railway, "trainInformationText"=>$trainInformationText];
+            } elseif ($railway == "Namboku") {
+                $items =["railway"=>$railway, "trainInformationText"=>$trainInformationText];
+            } elseif ($railway == "Hanzomon") {
+                $items =["railway"=>$railway, "trainInformationText"=>$trainInformationText];
+            } elseif ($railway == "Hibiya") {
+                $items =["railway"=>$railway, "trainInformationText"=>$trainInformationText];
+            } elseif ($railway == "Fukutoshin") {
+                $items =["railway"=>$railway, "trainInformationText"=>$trainInformationText];
+            } elseif ($railway == "Marunouchi") {
+                $items =["railway"=>$railway, "trainInformationText"=>$trainInformationText];
+            } elseif ($railway == "Ginza") {
+                $items =["railway"=>$railway, "trainInformationText"=>$trainInformationText];
+            } else {
+                $items =["railway"=>$railway, "trainInformationText"=>$trainInformationText];
+            }
+            $tmp[]=$items;
+//            $item=array("data"=>$tmp);
         }
+        $item=array("data"=>$tmp);
+        //var_dump($item);
+//        return view('train.index', $item);
+        return view('train.index', $item);
     }
+    public function getTrainOpeStatusApi(){
+        $trainInfoData=null;
+        $url=getenv('METRO_URL');
+        $key=getenv('METRO_TOKEN');
+        $client = new \GuzzleHttp\Client();
+        $uri = $url.'datapoints?rdf:type=odpt:TrainInformation&'.$key;   //運行状況取得
+        $response = $client->request('GET', $uri);
+        $res = $response->getBody()->getContents();
+        $json = json_decode($res, true);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        foreach ($json as $item) {
+            $id = $item["@id"];
+            $operator = $item["odpt:operator"];
+            $operator = str_replace('odpt.Operator:', '', $operator);
+            $railway = $item["odpt:railway"];
+            $railway = str_replace('odpt.Railway:TokyoMetro.', '', $railway);
+            $t = new DateTime($item["dc:date"]);
+            $t->setTimeZone(new DateTimeZone('Asia/Tokyo'));
+            $datetime = $t->format('Y-m-d H:i');
+            $valid = $item["dct:valid"];
+            $timeOfOrigin = $item["odpt:timeOfOrigin"];
+            $trainInformationText = $item["odpt:trainInformationText"];
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            $trainInfoData[] = array(
+                "id" => $id,
+                "date" => $datetime,
+                "valid" => $valid,
+                "operator" => $operator,
+                "railway" => $railway,
+                "timeOfOrigin" => $timeOfOrigin,
+                "trainInformationText" => $trainInformationText,
+            );
+        }
+        if (!empty($trainInfoData)){
+            return $trainInfoData;
+        }
+        else{
+            return 0;
+        }
     }
 }

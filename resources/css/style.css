@@ -1,0 +1,25 @@
+#scrollable-dropdown-menu .tt-dropdown-menu {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.main-title{
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+.railway-title-text{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 36px;
+    text-align: center;
+    line-height: 2em;
+    color: white;
+}
+
+.railway-main-text{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+}

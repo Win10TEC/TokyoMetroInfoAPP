@@ -1,34 +1,15 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.common')
 
-        <title>Laravel</title>
+@section('title', 'ページタイトル')
+@section('keywords', 'A,B,C')
+@section('description', '説明文')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    </head>
-    <body>
-<!--    @foreach($trainInformationText as $items)-->
-<!--    <p>{{ $items->trainInformationText }}</p>-->
-<!--    @endforeach-->
+@include('layouts.head')
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+@include('layouts.header')
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+@section('content')
+<p>コンテンツ内容が入ります</p>
+@endsection
+
+@include('layouts.footer')
