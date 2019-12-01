@@ -18,7 +18,6 @@
         text-align: center;
     }
 
-
     .railway-title-text {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 36px;
@@ -32,6 +31,11 @@
         font-size: 20px;
         text-align: center;
         color: white;
+    }
+
+    .text-bold {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight: bold;
     }
 </style>
 @endsection
