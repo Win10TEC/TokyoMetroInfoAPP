@@ -38,6 +38,6 @@ class TrainOpeStatusController extends Controller
             $tmp[] = $items;
         }
         $item = array("data" => $tmp);
-        return view('train.index', $item);
+        return view('trainstatus.index', $item);
     }
 }
