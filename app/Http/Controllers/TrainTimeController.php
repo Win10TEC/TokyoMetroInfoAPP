@@ -9,20 +9,13 @@ use Illuminate\Validation\ValidationException;
 class TrainTimeController extends Controller
 {
     public function index(Request $request){
-        return view('traintime.index',['msg' => 'フォーム入力']);
-    }
-    public function post(Request $request){
-        $api= new GetTrainTime();
-
-        $val=[
-            'station' => 'required'
-        ];
-        try {
-            $this->validate($request, $val);
-
-        } catch (ValidationException $e) {
-        }
-        $api->GetTrainTimeApi($val);
-        return view('traintime.index',['msg' => 'フォーム入力OK']);
+            $api= new GetTrainTime();
+            $uri = $request->input('odpt:station');
+            if (isset($uri)) {
+//                $api->GetTrainTimeApi($uri);
+//                $api->getTrainTimeList($uri);
+                $api->timeTablesSaturday($uri);
+            }
+        return view('traintime.index',$api);
     }
 }

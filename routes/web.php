@@ -14,4 +14,5 @@
 Route::get('/', 'TrainOpeStatusController@index');
 Route::get('/station', 'TrainStationController@index');
 Route::get('/time', 'TrainTimeController@index');
-Route::post('/time', 'TrainTimeController@post');
+Route::post('/time', 'TrainTimeController@index');
+//Route::post('time', 'TrainTimeController@post');
