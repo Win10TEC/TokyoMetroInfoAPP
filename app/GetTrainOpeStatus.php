@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use DateTime;
 use DateTimeZone;
 
-class getTrainOpeStatus extends Model
+class GetTrainOpeStatus extends Model
 {
-    public function getTrainOpeStatusApi()
+    public function GetTrainOpeStatusApi()
     {
         $trainInfoData = null;
         $url = getenv('METRO_URL');

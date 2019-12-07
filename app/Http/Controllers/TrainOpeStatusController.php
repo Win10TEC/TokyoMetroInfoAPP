@@ -11,8 +11,8 @@ class TrainOpeStatusController extends Controller
         $items = null;
         $item = null;
         $tmp = null;
-        $api = new getTrainOpeStatus();
-        foreach ($api->getTrainOpeStatusApi() as $data) {
+        $api = new GetTrainOpeStatus();
+        foreach ($api->GetTrainOpeStatusApi() as $data) {
             $railway = $data["railway"];
             $trainInformationText = $data["trainInformationText"];
 
